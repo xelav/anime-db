@@ -7,8 +7,8 @@ dj-database-url = "*"
 django = "*"
 gunicorn = "*"
 psycopg2 = "*"
-whitenoise = "*"
 djangorestframework = "*"
+drf-yasg = "*"
 
 [requires]
 python_version = "3.6"
