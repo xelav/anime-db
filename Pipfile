@@ -11,6 +11,7 @@ djangorestframework = "*"
 drf-yasg = "*"
 django-heroku = "*"
 flex = "*"
+swagger_spec_validator = "*"
 
 [requires]
 python_version = "3.6"
