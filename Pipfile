@@ -9,6 +9,7 @@ gunicorn = "*"
 psycopg2 = "*"
 djangorestframework = "*"
 drf-yasg = "*"
+django-heroku = "*"
 
 [requires]
 python_version = "3.6"
