@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Главное меню
+{% endblock %}
+
+{% block header %}
+    Поиск персонажей
+{% endblock %}
+
+{% block content %}
+
+    {% load bootstrap3 %}
+
+    {% if message %}
+        <p class="alert alert-info">{{ message }}</p>
+    {% endif %}
+
+    {% if character_form %}
+        {% bootstrap_form character_form %}
+    {% endif %}
+
+    <hr>
+
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form search_form %}
+        <input class="btn btn-primary" type="submit" value="Поиск">
+    </form>
+
+    <hr>
+
+    <input class="btn btn-default" type="button" value="Назад в меню" onclick="location.href='{% url 'main-menu' %}'" />
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Число категорий
+{% endblock %}
+
+{% block header %}
+    Число категорий
+{% endblock %}
+
+{% block content %}
+
+    {% load bootstrap3 %}
+
+    {% if message %}
+        <p class="alert alert-info">{{ message }}</p>
+    {% else %}
+        <p class="alert alert-info">Пожалуйста, выберите категорию для запроса:</p>
+    {% endif %}
+    <hr>
+
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form search_form %}
+        <input class="btn btn-primary" type="submit" value="Поиск">
+    </form>
+
+    <hr>
+
+    <input class="btn btn-default" type="button" value="Назад в меню" onclick="location.href='{% url 'main-menu' %}'" />
+
+{% endblock %}

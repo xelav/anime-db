@@ -1,14 +1,7 @@
-# This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#   * Rearrange models' order
-#   * Make sure each model has one field with primary_key=True
-#   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
-# Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
 
-class Agerestriction(models.Model):
+class AgeRestriction(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     abbreviated = models.CharField(db_column='Abbreviated', max_length=255, blank=True, null=True)  # Field name made lowercase.
     guide = models.CharField(db_column='Guide', max_length=255, blank=True, null=True)  # Field name made lowercase.
@@ -16,6 +9,9 @@ class Agerestriction(models.Model):
     class Meta:
         managed = False
         db_table = 'AgeRestriction'
+
+    def __str__(self):
+        return "{0} : {1}".format(self.abbreviated, self.guide)
 
 
 class Anime(models.Model):
@@ -30,12 +26,23 @@ class Anime(models.Model):
     has_franchise = models.NullBooleanField(db_column='hasFranchise')  # Field name made lowercase.
     created_at = models.DateTimeField(db_column='createdAt', blank=True, null=True)  # Field name made lowercase.
     updated_at = models.DateTimeField(db_column='updatedAt', blank=True, null=True)  # Field name made lowercase.
-    age_restriction = models.IntegerField(db_column='ageRestrictionId', blank=True, null=True)  # Field name made lowercase.
+    age_restriction = models.ForeignKey(
+        'AgeRestriction',
+        on_delete=models.DO_NOTHING,
+        db_column='ageRestrictionId',
+        # choices=AGE_RESTRICTION_CHOICES,
+        blank=True, null=True)
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'Anime'
+
+    def __str__(self):
+        if self.canonical_title:
+            return self.canonical_title
+        else:
+            return "Noname anime"
 
 
 class Category(models.Model):
@@ -63,6 +70,12 @@ class Character(models.Model):
     class Meta:
         managed = False
         db_table = 'Character'
+
+    def __str__(self):
+        if self.name:
+            return self.name
+        else:
+            return "Noname character"
 
 
 class Episode(models.Model):

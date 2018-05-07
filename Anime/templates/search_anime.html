@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Главное меню
+{% endblock %}
+
+{% block header %}
+    Поиск аниме
+{% endblock %}
+
+{% block content %}
+
+    {% load bootstrap3 %}
+
+    {% if anime_form %}
+        {% bootstrap_form anime_form size='medium' horizontal_field_class='col-md-6'%}
+        <input class="btn btn-primary" type="button" value="Редактирование" onclick="location.href='{% url 'anime-detail' pk=anime_id %}'" />
+    {% else %}
+        <p class="alert alert-info">Пожалуйста, введите название аниме для поиска</p>
+    {% endif %}
+
+    <hr>
+
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input class="btn btn-primary" type="submit" value="Поиск">
+    </form>
+
+    <hr>
+
+    <input class="btn btn-default" type="button" value="Назад в меню" onclick="location.href='{% url 'main-menu' %}'" />
+
+{% endblock %}

@@ -1,20 +1,14 @@
 from django.contrib import admin
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from rest_framework import routers
-from Anime import views
-from django.conf.urls import url
+from django.conf.urls import url, include
 from rest_framework import permissions
 
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-url_router = routers.SimpleRouter()
+from django.views.generic.base import RedirectView
 
-url_router.register(r'anime', views.AnimeViewSet, base_name='anime')
-url_router.register(r'episodes', views.EpisodeViewSet)
-url_router.register(r'characters', views.CharacterViewSet, base_name='characters')
-# url_router.register(r'producer', views.ProducerViewSet)
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -31,16 +25,16 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
-    url(r'^anime-seasons/(?P<year>[0-9]+)/$', views.get_yearly_anime_count),
-    url(r'^category-count/$', views.get_category_count),
-    url(r'^producer-count/$', views.get_producer_count),
+
+    url(r'^api/', include('Anime.api_urls')),
+    url(r'^app/', include('Anime.app_urls')),
 
     # url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=None), name='schema-json'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=None), name='schema-swagger-ui'),
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=None), name='schema-redoc'),
+    url(r'^.*$', RedirectView.as_view(pattern_name='main-menu', permanent=False), name='index')
 ]
 
-urlpatterns = format_suffix_patterns(urlpatterns)
-
-urlpatterns += url_router.urls
+# urlpatterns = format_suffix_patterns(urlpatterns)

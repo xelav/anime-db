@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Главное меню
+{% endblock %}
+
+{% block header %}
+    Главное меню
+{% endblock %}
+
+{% block content %}
+
+    <input class="btn btn-default" type="button" value="Поиск аниме" onclick="location.href='{% url 'search-anime' %}'" />
+    <input class="btn btn-default" type="button" value="Поиск персонажей" onclick="location.href='{% url 'search-character' %}'" />
+
+    <br><hr>
+    <input class="btn btn-default" type="button" value="Список аниме" onclick="location.href='{% url 'anime-list' %}'" />
+    <input class="btn btn-default" type="button" value="Список персонаже" onclick="location.href='{% url 'characters-list' %}'" />
+    <input class="btn btn-default" type="button" value="Список эпизодов" onclick="location.href='{% url 'episodes-list' %}'" />
+    <input class="btn btn-default" type="button" value="Список производителей" onclick="location.href='{% url 'producers-list' %}'" />
+
+    <br><hr>
+
+    <input class="btn btn-default" type="button" value="Число категорий" onclick="location.href='{% url 'category-count' %}'" />
+    <input class="btn btn-default" type="button" value="Число производителей" onclick="location.href='{% url 'producer-count' %}'" />
+
+
+{% endblock %}
