@@ -12,6 +12,7 @@ drf-yasg = "*"
 django-heroku = "*"
 flex = "*"
 swagger_spec_validator = "*"
+django-bootstrap3 = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.5"
