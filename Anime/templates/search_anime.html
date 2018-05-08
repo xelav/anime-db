@@ -13,20 +13,20 @@
 
     {% load bootstrap3 %}
 
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input class="btn btn-primary" type="submit" value="Поиск">
+    </form>
+
+    <hr>
+
     {% if anime_form %}
         {% bootstrap_form anime_form size='medium' horizontal_field_class='col-md-6'%}
         <input class="btn btn-primary" type="button" value="Редактирование" onclick="location.href='{% url 'anime-detail' pk=anime_id %}'" />
     {% else %}
         <p class="alert alert-info">Пожалуйста, введите название аниме для поиска</p>
     {% endif %}
-
-    <hr>
-
-    <form method="post">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <input class="btn btn-primary" type="submit" value="Поиск">
-    </form>
 
     <hr>
 

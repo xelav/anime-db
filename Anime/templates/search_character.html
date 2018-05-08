@@ -13,6 +13,14 @@
 
     {% load bootstrap3 %}
 
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form search_form %}
+        <input class="btn btn-primary" type="submit" value="Поиск">
+    </form>
+
+    <hr>
+
     {% if message %}
         <p class="alert alert-info">{{ message }}</p>
     {% endif %}
@@ -20,14 +28,6 @@
     {% if character_form %}
         {% bootstrap_form character_form %}
     {% endif %}
-
-    <hr>
-
-    <form method="post">
-        {% csrf_token %}
-        {% bootstrap_form search_form %}
-        <input class="btn btn-primary" type="submit" value="Поиск">
-    </form>
 
     <hr>
 
