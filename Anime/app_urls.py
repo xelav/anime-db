@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^search-anime/$', search_anime, name='search-anime'),
     url(r'^search-character/$', search_character, name='search-character'),
 
-    url(r'^create-anime/$', create_anime),
+    url(r'^create-anime/$', create_anime, name='create-anime'),
     url(r'^create-character/$', create_character),
     url(r'^create-episode/$', create_episode),
     url(r'^create-producer/$', create_producer),

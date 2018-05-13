@@ -11,19 +11,84 @@
 
 {% block content %}
 
-    <input class="btn btn-default" type="button" value="Поиск аниме" onclick="location.href='{% url 'search-anime' %}'" />
-    <input class="btn btn-default" type="button" value="Поиск персонажей" onclick="location.href='{% url 'search-character' %}'" />
+    <div id="main-menu">
 
-    <br><hr>
-    <input class="btn btn-default" type="button" value="Список аниме" onclick="location.href='{% url 'anime-list' %}'" />
-    <input class="btn btn-default" type="button" value="Список персонаже" onclick="location.href='{% url 'characters-list' %}'" />
-    <input class="btn btn-default" type="button" value="Список эпизодов" onclick="location.href='{% url 'episodes-list' %}'" />
-    <input class="btn btn-default" type="button" value="Список производителей" onclick="location.href='{% url 'producers-list' %}'" />
+        <input class="btn btn-default" type="button" value="Поиск аниме" onclick="location.href='{% url 'search-anime' %}'" />
+        <input class="btn btn-default" type="button" value="Поиск персонажей" onclick="location.href='{% url 'search-character' %}'" />
 
-    <br><hr>
+        <br><hr>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#anime-creation-modal">Создание аниме</button>
+        <input class="btn btn-default" type="button" value="Список персонаже" onclick="location.href='{% url 'characters-list' %}'" />
+        <input class="btn btn-default" type="button" value="Список эпизодов" onclick="location.href='{% url 'episodes-list' %}'" />
+        <input class="btn btn-default" type="button" value="Список производителей" onclick="location.href='{% url 'producers-list' %}'" />
 
-    <input class="btn btn-default" type="button" value="Число категорий" onclick="location.href='{% url 'category-count' %}'" />
-    <input class="btn btn-default" type="button" value="Число производителей" onclick="location.href='{% url 'producer-count' %}'" />
+        <br><hr>
+
+        <input class="btn btn-default" type="button" value="Число категорий" onclick="location.href='{% url 'category-count' %}'" />
+        <input class="btn btn-default" type="button" value="Число производителей" onclick="location.href='{% url 'producer-count' %}'" />
+
+    </div>
+
+
+    <!-- Modals -->
+
+    <div class="modal fade" id="anime-creation-modal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            {% include "create_anime.html" %}
+          </div>
+
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="anime-search-modal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            {% include "search_anime.html" %}
+          </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="character-search-modal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            {% include "search_character.html" %}
+          </div>
+
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#anime-search-modal">Поиск аниме</button>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#character-search-modal">Поиск персонажей</button>
+
+{% endblock %}
+
+{% block scripts %}
+
+    {% block search-anime-scripts %}{% endblock %}
+
+    <script>
+
+{#        main_menu_app = new Vue({#}
+{#            el: '#main_menu_app',#}
+{#            data: {#}
+{#                current_anime : null,#}
+{#                anime_options : "",#}
+{#                anime_search : "",#}
+{#                message : null,#}
+{#            },#}
+{#            methods: {#}
+
+    </script>
+
 
 
 {% endblock %}

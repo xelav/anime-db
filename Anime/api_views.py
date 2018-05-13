@@ -25,7 +25,7 @@ class AnimeViewSet(viewsets.ModelViewSet):
 
         title = self.request.query_params.get('title')
         if title:
-            queryset = queryset.filter(canonical_title=title)
+            queryset = queryset.filter(canonical_title__contains=title)
 
         return queryset
 
@@ -44,7 +44,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(anime__canonical_title=anime_title)
 
         character_name = self.request.query_params.get('character_name')
-        if anime_title:
+        if character_name:
             queryset = queryset.filter(name=character_name)
 
         return queryset

@@ -62,6 +62,7 @@ class CharacterForm(forms.ModelForm):
         model = Character
         fields = '__all__'
 
+
 class SearchAnimeForm(forms.Form):
     search_anime = forms.CharField(
         label='Название аниме',
@@ -86,14 +87,16 @@ class SearchCharacterForm(forms.Form):
                 .order_by('canonical_title')\
                 .values_list('canonical_title', flat=True)\
                 .distinct(),
-            name='anime-list'
+            attrs={'v-model': 'anime_search', '@change': "anime_query"},
+            name='anime-list',
         )
     )
     search_character = forms.CharField(
         label='Имя персонажа',
-        widget=ListTextWidget(
-            data_list=Character.objects.all().order_by('name').values_list('name', flat=True).distinct(),
-            name='characters-list'
+        widget=forms.Select(
+            # data_list=Character.objects.all().order_by('name').values_list('name', flat=True).distinct(),
+            attrs={'v-bind:disabled': 'characters_disabled', 'v-model': 'character_search'},
+            # name='characters-list'
         )
     )
 

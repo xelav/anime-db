@@ -1,35 +1,104 @@
-{% extends "layout.html" %}
-{% load staticfiles %}
 
-{% block title %}
-    Главное меню
-{% endblock %}
-
-{% block header %}
-    Поиск аниме
-{% endblock %}
-
-{% block content %}
-
-    {% load bootstrap3 %}
-
-    <form method="post">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <input class="btn btn-primary" type="submit" value="Поиск">
-    </form>
+    <div class="modal-header">
+        <h4>
+            Поиск аниме
+        </h4>
+    </div>
 
     <hr>
 
-    {% if anime_form %}
-        {% bootstrap_form anime_form size='medium' horizontal_field_class='col-md-6'%}
-        <input class="btn btn-primary" type="button" value="Редактирование" onclick="location.href='{% url 'anime-detail' pk=anime_id %}'" />
-    {% else %}
-        <p class="alert alert-info">Пожалуйста, введите название аниме для поиска</p>
-    {% endif %}
+    <div id="anime-search-app">
+        <div class="modal-body">
 
-    <hr>
+             <div class="form-group">
+                <label for="id_search_anime" class="control-label">
+                    Название аниме
+                </label>
+                <input name="search_anime" required="required" placeholder="Название аниме" title="" v-model="anime_search" list="list__anime-list" id="id_search_anime" class="form-control" type="text">
+                <datalist autocomplete="off" id="list__anime-list">
+                    <option v-for="option in anime_options" v-bind:value="option.canonical_title">
+                        {$ option.canonical_title $}
+                    </option>
+                </datalist>
+             </div>
+            <input value="Поиск" class="btn btn-primary" v-on:click="submit_search_form">
 
-    <input class="btn btn-default" type="button" value="Назад в меню" onclick="location.href='{% url 'main-menu' %}'" />
+            <hr>
 
-{% endblock %}
+            <p v-if="message" class="alert alert-info" >
+                {$ message $}
+            </p>
+
+            <div v-if="current_anime">
+                <anime-form :anime="current_anime" :readonly="true">
+                </anime-form>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" v-on:click="reset_form" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+    <script>
+
+        anime_search_form = new Vue({
+            el: '#anime-search-app',
+            data: {
+                current_anime : null,
+                anime_options : "",
+                anime_search : "",
+                message : null,
+            },
+            methods: {
+                get_anime_list: function () {
+                    self = this;
+                    this.$http.get(
+                        'anime',
+                        {params: {'limit': 100}}
+                    ).then(response => {
+                            console.log(response);
+                            this.anime_options = response.body.results;
+                        }, response => {
+
+                        }
+                    )
+                },
+                submit_search_form: function () {
+                    console.log("Submit_search_form");
+                    this.$http.get(
+                        'anime/',
+                        {params: {'title': this.anime_search}}
+                    ).then(response => {
+                            console.log("Got response! : ");
+                            console.log(response);
+                            this.current_anime = null;
+                            if (response.body.results.length == 0){
+                                self.message = "По запросу не найдено ни одной записи."
+                            } else {
+                                if (response.body.results.length > 1)
+                                    self.message = "По запросу найдено более одной записи. Попробуйте уточнить название аниме."
+                                this.current_anime = response.body.results[0];
+
+                            }
+                        })
+                    },
+                reset_form: function () {
+                    console.log("reset!");
+                    this.current_anime = null;
+
+                    this.anime_search = "";
+                    this.message = null;
+
+                    //this.anime_options = "";
+                    //self.get_anime_list();
+                 },
+                },
+            beforeMount: function(){
+                console.log("anime-beforeMount");
+                this.get_anime_list();
+            },
+        })
+
+    </script>

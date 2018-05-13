@@ -1,23 +1,129 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block title %}
+    Создание аниме
+{% endblock %}
+
+{% block header %}
+    Создание аниме
+{% endblock %}
+
+{% block content %}
 
     <p>{{ message }}</p>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Сохранить">
-    </form>
+    <div id="anime-create-app">
+
+        <div class="modal-body">
+
+            <form method="post">
+
+                <p v-if="info_message" class="alert alert-info">
+                    {$ info_message $}
+                </p>
+
+                <p v-if="success_message" class="alert alert-success">
+                    {$ success_message $}
+                </p>
+
+                <p v-if="error_message" class="alert alert-danger">
+                    {$ error_message $}
+                    <br/>
+                    {$ error_text $}
+                </p>
+
+                <hr>
+
+                <anime-form :anime="anime" :readonly="false"></anime-form>
+
+                <hr>
+
+                <button type="button" class="btn btn-primary" v-on:click="post_form" data-dismiss="modal">Создать/редактировать</button>
+                <button type="button" class="btn btn-danger" v-on:click="delete_form" data-dismiss="modal">Удалить</button>
+            </form>
+        </div>
+
+    </div>
     
-{#    <form method="get">#}
-{#        {% csrf_token %}#}
-{#        {{ search_form.as_p }}#}
-{#        <input type="submit" value="Search">#}
-{#    </form>#}
-</body>
-</html>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script>
+
+
+
+        anime_creation_form = new Vue({
+            el: '#anime-create-app',
+            data: {
+                anime : {},
+                info_message : '',
+                success_message : '',
+                error_message : '',
+                error_text : '',
+            },
+            methods: {
+                post_form: function () {
+                    this.clear_messages();
+                    if (!this.anime.id) {
+                        console.log('POST request!');
+                        this.$http.post(
+                            'anime/',
+                            this.anime
+                        ).then(response => {
+                            console.log(response.body);
+                            this.anime = response.body;
+                            this.success_message = "Запись успешно создана";
+                        }).then(response => {
+                            this.update_error(response)
+                        })
+                    } else {
+                        console.log('PUT request!');
+                        this.$http.put(
+                            'anime/'+this.anime.id+'/',
+                            this.anime
+                        ).then(response => {
+                            console.log(response.body);
+                            this.anime = response.body;
+                            this.success_message = "Запись успешно обновлена";
+                        }, response => {
+                            this.update_error(response)
+                        })
+                    }
+                },
+                delete_form: function () {
+                    this.clear_messages();
+                    if (!this.anime.id){
+                        this.info_message = 'Сейчас не выбрано никакой записи для удаления';
+                    } else {
+                        this.$http.delete(
+                            'anime/'+this.anime.id+'/',
+                            this.anime
+                        ).then(response => {
+                            console.log(response.body);
+                            this.anime = {};
+                            this.success_message = "Запись успешно удалена";
+                        }, response => {
+                            this.update_error(response)
+                        })
+                    }
+                },
+                update_error: function (response) {
+                    console.log(response);
+                    console.log(response.body);
+                    console.log(response.bodyText);
+                    this.error_message = "Ошибка. Код: " + response.status + " " + response.statusText;
+                    this.error_text = response.bodyText;
+                },
+                clear_messages: function () {
+                    this.success_message = "";
+                    this.error_message = "";
+                    this.error_text = "";
+                    this.info_message = '';
+                }
+            },
+        })
+    </script>
+
+{% endblock %}

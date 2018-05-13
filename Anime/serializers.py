@@ -3,6 +3,11 @@ from .models import *
 
 
 class AnimeSerializer(serializers.ModelSerializer):
+    age_restriction = serializers.SlugRelatedField(
+        many=False,
+        read_only=True,
+        slug_field='age_restriction'
+    )
 
     class Meta:
         model = Anime
@@ -10,6 +15,8 @@ class AnimeSerializer(serializers.ModelSerializer):
 
 
 class CharacterSerializer(serializers.ModelSerializer):
+
+    anime = AnimeSerializer(read_only=True)
 
     class Meta:
         model = Character
