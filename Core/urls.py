@@ -34,7 +34,8 @@ urlpatterns = [
     # url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=None), name='schema-json'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=None), name='schema-swagger-ui'),
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=None), name='schema-redoc'),
-    url(r'^.*$', RedirectView.as_view(pattern_name='main-menu', permanent=False), name='index')
+
+    # url(r'^.*$', RedirectView.as_view(pattern_name='main-menu', permanent=False), name='index')
 ]
 
 # urlpatterns = format_suffix_patterns(urlpatterns)
