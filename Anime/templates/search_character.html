@@ -1,12 +1,14 @@
 
 
     <div class="modal-header">
+        <h3>
+            Аниме БД
+        </h3>
+        <hr>
         <h4>
             Поиск персонажей
         </h4>
     </div>
-
-    <hr>
 
     <div id="character-search-app">
         <div class="modal-body">
@@ -119,6 +121,9 @@
                             console.log("Got character! : ");
                             console.log(response);
                             self.current_character = response.body;
+                            this.anime_search = "";
+                            this.character_options = "";
+                            this.characters_disabled = true;
                         }
                     )
                 },

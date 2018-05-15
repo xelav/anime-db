@@ -58,10 +58,10 @@ Vue.component('anime-form', {
                     <textarea class="form-control" placeholder="Пусто" v-model:value="anime.titles" v-bind:disabled="readonly"></textarea >
 
                     <label class="control-label">Дата начала показа</label>
-                    <input type="text" class="form-control" placeholder="Пусто" v-model:value="anime.start_date" v-bind:disabled="readonly"/>
+                    <input type="text" class="form-control" placeholder="YYYY-MM-DD" v-model:value="anime.start_date" v-bind:disabled="readonly"/>
 
                     <label class="control-label">Дата окончания</label>
-                    <input type="text" class="form-control" placeholder="Пусто" v-model:value="anime.end_date" v-bind:disabled="readonly"/>
+                    <input type="text" class="form-control" placeholder="YYYY-MM-DD" v-model:value="anime.end_date" v-bind:disabled="readonly"/>
 
                     <label class="control-label">Число эпиздов</label>
                     <input type="number" class="form-control" placeholder="Пусто" v-model:value="anime.episode_count" v-bind:disabled="readonly"/>
@@ -83,10 +83,10 @@ Vue.component('anime-form', {
                     <input type="checkbox" class="form-control checkbox-inline"  v-model:value="anime.has_franchise" v-bind:disabled="readonly"/>
                     
                     <label class="control-label">Время создания записи</label>
-                    <input type="text" class="form-control" placeholder="Пусто" v-model:value="anime.created_at" v-bind:disabled="readonly"/>
+                    <input type="text" class="form-control" placeholder="Пусто" v-model:value="anime.created_at" disabled/>
                     
                     <label class="control-label">Время обновления записи</label>
-                    <input type="text" class="form-control" placeholder="Пусто" v-model:value="anime.updated_at" v-bind:disabled="readonly"/>
+                    <input type="text" class="form-control" placeholder="Пусто" v-model:value="anime.updated_at" disabled/>
                     
                     <label class="control-label">Возрастной рейтинг</label>
                     <input type="text" class="form-control" placeholder="Пусто" v-model:value="anime.age_restriction" v-bind:disabled="readonly"/>

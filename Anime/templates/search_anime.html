@@ -1,11 +1,13 @@
 
     <div class="modal-header">
+        <h3>
+            Аниме БД
+        </h3>
+        <hr>
         <h4>
             Поиск аниме
         </h4>
     </div>
-
-    <hr>
 
     <div id="anime-search-app">
         <div class="modal-body">
@@ -80,7 +82,7 @@
                                 if (response.body.results.length > 1)
                                     self.message = "По запросу найдено более одной записи. Попробуйте уточнить название аниме."
                                 this.current_anime = response.body.results[0];
-
+                                this.anime_search = "";
                             }
                         })
                     },

@@ -1,5 +1,9 @@
 
     <div class="modal-header">
+        <h3>
+            Аниме БД
+        </h3>
+        <hr>
         <h4>
             Создание аниме
         </h4>
@@ -9,31 +13,29 @@
 
         <div class="modal-body">
 
-            <form method="post">
 
-                <p v-if="info_message" class="alert alert-info">
-                    {$ info_message $}
-                </p>
+            <anime-form :anime="anime" :readonly="false"></anime-form>
 
-                <p v-if="success_message" class="alert alert-success">
-                    {$ success_message $}
-                </p>
+            <hr>
 
-                <p v-if="error_message" class="alert alert-danger">
-                    {$ error_message $}
-                    <br/>
-                    {$ error_text $}
-                </p>
+            <p v-if="info_message" class="alert alert-info">
+                {$ info_message $}
+            </p>
 
-                <hr>
+            <p v-if="success_message" class="alert alert-success">
+                {$ success_message $}
+            </p>
 
-                <anime-form :anime="anime" :readonly="false"></anime-form>
+            <p v-if="error_message" class="alert alert-danger">
+                {$ error_message $}
+                <br/>
+                {$ error_text $}
+            </p>
 
-                <hr>
+            <hr>
 
-                <button type="button" class="btn btn-primary" v-on:click="post_form">Создать/редактировать</button>
-                <button type="button" class="btn btn-danger" v-on:click="delete_form">Удалить</button>
-            </form>
+            <button type="button" class="btn btn-primary" v-on:click="post_form">Создать/редактировать</button>
+            <button type="button" class="btn btn-danger" v-on:click="delete_form">Удалить</button>
 
         </div>
 
@@ -104,8 +106,6 @@
                 },
                 update_error: function (response) {
                     console.log(response);
-                    console.log(response.body);
-                    console.log(response.bodyText);
                     this.error_message = "Ошибка. Код: " + response.status + " " + response.statusText;
                     this.error_text = response.bodyText;
                 },
@@ -117,7 +117,7 @@
                 },
                 reset_form: function () {
                     console.log("reset!");
-                    this.anime = null;
+                    this.anime = {};
                     this.clear_messages();
                  },
             },

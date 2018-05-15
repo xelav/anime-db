@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from django.db.models import Count
 
 from .serializers import *
-from datetime import datetime
+import datetime
 
 
 class AnimeViewSet(viewsets.ModelViewSet):
@@ -22,13 +22,30 @@ class AnimeViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
 
-        queryset = Anime.objects.all()
+        queryset = Anime.objects.all().order_by('canonical_title')
 
         title = self.request.query_params.get('title')
         if title:
             queryset = queryset.filter(canonical_title__contains=title)
 
         return queryset
+
+    # def create(self, request, *args, **kwargs):
+    #     print("create")
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_create(serializer)
+    #     headers = self.get_success_headers(serializer.data)
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    #
+    # def perform_create(self, serializer):
+    #     serializer.save()
+    #
+    # def get_success_headers(self, data):
+    #     try:
+    #         return {'Location': str(data[api_settings.URL_FIELD_NAME])}
+    #     except (TypeError, KeyError):
+    #         return {}
 
 
 class CharacterViewSet(viewsets.ModelViewSet):
@@ -38,7 +55,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
 
-        queryset = Character.objects.all()
+        queryset = Character.objects.all().order_by('name')
 
         anime_title = self.request.query_params.get('anime_title')
         if anime_title:
@@ -55,14 +72,14 @@ class EpisodeViewSet(viewsets.ModelViewSet):
     pagination_class = LimitOffsetPagination
     serializer_class = EpisodeSerializer
 
-    queryset = Episode.objects.all()
+    queryset = Episode.objects.all().order_by('canonical_title')
 
 
 class ProducerViewSet(viewsets.ModelViewSet):
     pagination_class = LimitOffsetPagination
     serializer_class = EpisodeSerializer
 
-    queryset = Producer.objects.all()
+    queryset = Producer.objects.all().order_by('name')
 
 
 @api_view(['GET'])

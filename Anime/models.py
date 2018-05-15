@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
+import datetime
 
 
 class AgeRestriction(models.Model):
@@ -106,3 +109,16 @@ class Producer(models.Model):
     class Meta:
         managed = False
         db_table = 'Producer'
+
+
+@receiver(post_save)
+def set_time_marks(sender, instance=None, created=False, **kwargs):
+    list_of_models = ('Anime', 'Category', 'Character', 'Producer')
+    if sender.__name__ in list_of_models:
+        current_time = datetime.datetime.now()
+        if created:
+            instance.created_at = current_time
+            instance.updated_at = current_time
+            instance.save()
+        else:
+            sender.objects.filter(pk=instance.id).update(updated_at=current_time)
