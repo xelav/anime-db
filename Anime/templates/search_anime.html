@@ -55,7 +55,7 @@
                 get_anime_list: function () {
                     self = this;
                     this.$http.get(
-                        'anime',
+                        'anime/',
                         {params: {'limit': 100}}
                     ).then(response => {
                             console.log(response);
