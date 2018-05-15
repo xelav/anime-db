@@ -1,16 +1,9 @@
-{% extends "layout.html" %}
 
-{% block title %}
-    Создание аниме
-{% endblock %}
-
-{% block header %}
-    Создание аниме
-{% endblock %}
-
-{% block content %}
-
-    <p>{{ message }}</p>
+    <div class="modal-header">
+        <h4>
+            Создание аниме
+        </h4>
+    </div>
 
     <div id="anime-create-app">
 
@@ -38,17 +31,17 @@
 
                 <hr>
 
-                <button type="button" class="btn btn-primary" v-on:click="post_form" data-dismiss="modal">Создать/редактировать</button>
-                <button type="button" class="btn btn-danger" v-on:click="delete_form" data-dismiss="modal">Удалить</button>
+                <button type="button" class="btn btn-primary" v-on:click="post_form">Создать/редактировать</button>
+                <button type="button" class="btn btn-danger" v-on:click="delete_form">Удалить</button>
             </form>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" v-on:click="reset_form" data-dismiss="modal">Закрыть</button>
         </div>
 
     </div>
-    
-
-{% endblock %}
-
-{% block scripts %}
 
     <script>
 
@@ -121,9 +114,12 @@
                     this.error_message = "";
                     this.error_text = "";
                     this.info_message = '';
-                }
+                },
+                reset_form: function () {
+                    console.log("reset!");
+                    this.anime = null;
+                    this.clear_messages();
+                 },
             },
         })
     </script>
-
-{% endblock %}

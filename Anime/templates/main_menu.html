@@ -13,27 +13,42 @@
 
     <div id="main-menu">
 
-        <input class="btn btn-default" type="button" value="Поиск аниме" onclick="location.href='{% url 'search-anime' %}'" />
-        <input class="btn btn-default" type="button" value="Поиск персонажей" onclick="location.href='{% url 'search-character' %}'" />
-
-        <br><hr>
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#anime-creation-modal">Создание аниме</button>
-        <input class="btn btn-default" type="button" value="Список персонаже" onclick="location.href='{% url 'characters-list' %}'" />
-        <input class="btn btn-default" type="button" value="Список эпизодов" onclick="location.href='{% url 'episodes-list' %}'" />
-        <input class="btn btn-default" type="button" value="Список производителей" onclick="location.href='{% url 'producers-list' %}'" />
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#anime-creation-modal">Создание аниме</button>
 
         <br><hr>
 
-        <input class="btn btn-default" type="button" value="Число категорий" onclick="location.href='{% url 'category-count' %}'" />
-        <input class="btn btn-default" type="button" value="Число производителей" onclick="location.href='{% url 'producer-count' %}'" />
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#category-count-modal">Число категорий</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#producer-count-modal">Число производителей</button>
+
+        <br><hr>
+
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#anime-search-modal">Поиск аниме</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#character-search-modal">Поиск персонажей</button>
 
     </div>
 
 
     <!-- Modals -->
 
-    <div class="modal fade" id="anime-creation-modal" role="dialog">
+    <div class="modal fade" id="category-count-modal" role="dialog">
         <div class="modal-dialog">
+          <div class="modal-content">
+            {% include "category_count.html" %}
+          </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="producer-count-modal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            {% include "producer_count.html" %}
+          </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="anime-creation-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
 
           <!-- Modal content-->
           <div class="modal-content">
@@ -44,8 +59,8 @@
     </div>
 
 
-    <div class="modal fade" id="anime-search-modal" role="dialog">
-        <div class="modal-dialog">
+    <div class="modal fade modal-lg" id="anime-search-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
 
           <!-- Modal content-->
           <div class="modal-content">
@@ -55,8 +70,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="character-search-modal" role="dialog">
-        <div class="modal-dialog">
+    <div class="modal fade modal-lg" id="character-search-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
 
           <!-- Modal content-->
           <div class="modal-content">
@@ -66,14 +81,9 @@
         </div>
     </div>
 
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#anime-search-modal">Поиск аниме</button>
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#character-search-modal">Поиск персонажей</button>
-
 {% endblock %}
 
 {% block scripts %}
-
-    {% block search-anime-scripts %}{% endblock %}
 
     <script>
 

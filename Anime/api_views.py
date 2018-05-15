@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework import viewsets
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
+from django.db.models import Count
 
 from .serializers import *
 from datetime import datetime
@@ -85,18 +86,18 @@ def get_yearly_anime_count(request, year, format=None):
 @api_view(['GET'])
 def get_category_count(request):
 
-    category_title = request.query_params.get('category_title')
+    # category_title = request.query_params.get('category_title')
 
-    query = Category.objects.filter(title=category_title)
+    query = Category.objects.values('title').annotate(count=Count('title'))
 
-    return Response({'count':query.count()})
+    return Response(query)
 
 
 @api_view(['GET'])
 def get_producer_count(request):
 
-    producer_name = request.query_params.get('producer_name')
+    # producer_name = request.query_params.get('producer_name')
 
-    query = Producer.objects.filter(name=producer_name)
+    query = Producer.objects.values('name').annotate(count=Count('name'))
 
-    return Response({'count':query.count()})
+    return Response(query)

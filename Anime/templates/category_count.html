@@ -1,33 +1,54 @@
-{% extends "layout.html" %}
-{% load staticfiles %}
+<div id="category-count">
 
-{% block title %}
-    Число категорий
-{% endblock %}
+    <div class="modal-body">
 
-{% block header %}
-    Число категорий
-{% endblock %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Категория</td>
+                    <td>Число</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="entry in count_list">
+                    <td>{$ entry.title $}</td>
+                    <td>{$ entry.count $}</td>
+                </tr>
+            </tbody>
 
-{% block content %}
+        </table>
 
-    {% load bootstrap3 %}
+    </div>
 
-    {% if message %}
-        <p class="alert alert-info">{{ message }}</p>
-    {% else %}
-        <p class="alert alert-info">Пожалуйста, выберите категорию для запроса:</p>
-    {% endif %}
-    <hr>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+    </div>
 
-    <form method="post">
-        {% csrf_token %}
-        {% bootstrap_form search_form %}
-        <input class="btn btn-primary" type="submit" value="Поиск">
-    </form>
+</div>
 
-    <hr>
 
-    <input class="btn btn-default" type="button" value="Назад в меню" onclick="location.href='{% url 'main-menu' %}'" />
+<script>
 
-{% endblock %}
+    category_count_form = new Vue({
+        el: '#category-count',
+        data: {
+            count_list : [],
+        },
+        methods: {
+            get_count_list: function () {
+                this.$http.get(
+                    'category-count'
+                ).then(response => {
+                    console.log('Response to category-count: ');
+                    console.log(response);
+                    this.count_list = response.body;
+                })
+            },
+        },
+        beforeMount: function(){
+            this.get_count_list();
+        },
+
+    })
+
+</script>
