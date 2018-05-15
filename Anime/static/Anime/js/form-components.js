@@ -67,7 +67,12 @@ Vue.component('anime-form', {
                     <input type="number" class="form-control" placeholder="Пусто" v-model:value="anime.episode_count" v-bind:disabled="readonly"/>
                     
                     <label class="control-label">Тип аниме</label>
-                    <input type="text" class="form-control" placeholder="Пусто" v-model:value="anime.show_type" v-bind:disabled="readonly"/>
+                    <select type="text" class="form-control" placeholder="Пусто" v-model:value="anime.show_type" v-bind:disabled="readonly">
+                        <option>TV</option>
+                        <option>Movie</option>
+                        <option>OVA</option>
+                        <option>OWA</option>
+                    </select>
                     
                     <label class="control-label">Статус</label>
                     <select type="text" class="form-control" placeholder="Пусто" v-model:value="anime.status" v-bind:disabled="readonly">
