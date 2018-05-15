@@ -56,7 +56,7 @@
                     self = this;
                     this.$http.get(
                         'anime/',
-                        {params: {'limit': 100}}
+                        {params: {'limit': 1000}}
                     ).then(response => {
                             console.log(response);
                             this.anime_options = response.body.results;
