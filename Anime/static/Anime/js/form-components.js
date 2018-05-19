@@ -112,7 +112,7 @@ Vue.component('episode-form', {
             <textarea class="form-control" placeholder="Пусто" v-model:value="episode.synopsis" v-bind:disabled="readonly"></textarea >
             
             <label class="control-label">Дата выпуска в эфир</label>
-            <input type="text" class="form-control" placeholder="Пусто" v-model:value="episode.air_date" v-bind:disabled="readonly"/>
+            <input type="text" class="form-control" placeholder="YYYY-MM-DD" v-model:value="episode.air_date" v-bind:disabled="readonly"/>
             
             <label class="control-label">Номер сезона</label>
             <input type="text" class="form-control" placeholder="Пусто" v-model:value="episode.season_number" v-bind:disabled="readonly"/>
