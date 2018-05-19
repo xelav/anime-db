@@ -15,6 +15,10 @@
     <div id="main-menu">
 
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#anime-creation-modal">Создание аниме</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#character-creation-modal">Создание персонажей</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#episode-creation-modal">Создание эпизодов</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#category-creation-modal">Создание категорий</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#producer-creation-modal">Создание производителей</button>
 
         <br><hr>
 
@@ -30,6 +34,8 @@
 
 
     <!-- Modals -->
+
+    <!-- Окна статистики -->
 
     <div class="modal fade" id="category-count-modal" role="dialog">
         <div class="modal-dialog">
@@ -47,6 +53,7 @@
         </div>
     </div>
 
+    <!-- Формы создания -->
 
     <div class="modal fade" id="anime-creation-modal" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -58,6 +65,47 @@
         </div>
     </div>
 
+    <div class="modal fade" id="character-creation-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <!-- Modal content-->
+          <div class="modal-content">
+            {% include "create_character.html" %}
+          </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="episode-creation-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <!-- Modal content-->
+          <div class="modal-content">
+            {% include "create_episode.html" %}
+          </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="category-creation-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <!-- Modal content-->
+          <div class="modal-content">
+            {% include "create_category.html" %}
+          </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="producer-creation-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <!-- Modal content-->
+          <div class="modal-content">
+            {% include "create_producer.html" %}
+          </div>
+
+        </div>
+    </div>
+
+    <!-- Формы поиска -->
 
     <div class="modal fade modal-lg" id="anime-search-modal" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -87,15 +135,13 @@
 
     <script>
 
-{#        main_menu_app = new Vue({#}
-{#            el: '#main_menu_app',#}
-{#            data: {#}
-{#                current_anime : null,#}
-{#                anime_options : "",#}
-{#                anime_search : "",#}
-{#                message : null,#}
-{#            },#}
-{#            methods: {#}
+       $('#anime-search-modal').on('shown.bs.modal', function (e) {
+          anime_search_form.get_anime_list();
+       })
+
+        $('#anime-search-modal').on('shown.bs.modal', function (e) {
+          character_search_form.get_anime_list();
+       })
 
     </script>
 

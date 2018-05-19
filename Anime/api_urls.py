@@ -9,7 +9,8 @@ url_router = routers.SimpleRouter()
 url_router.register(r'anime', AnimeViewSet, base_name='anime')
 url_router.register(r'episodes', EpisodeViewSet, base_name='episodes')
 url_router.register(r'characters', CharacterViewSet, base_name='characters')
-url_router.register(r'producer', ProducerViewSet, base_name='producers')
+url_router.register(r'producers', ProducerViewSet, base_name='producers')
+url_router.register(r'categories', CategoryViewSet, base_name='categories')
 
 urlpatterns = [
 

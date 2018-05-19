@@ -9,16 +9,16 @@
         </h4>
     </div>
 
-    <div id="episode-create-app">
+    <div id="category-create-app">
 
         <div class="modal-body">
 
 
-            <episode-form
-                    :episode="episode"
+            <category-form
+                    :category="category"
                     :readonly="false"
                     :anime_options="anime_options"
-            ></episode-form>
+            ></category-form>
 
             <hr>
 
@@ -38,7 +38,7 @@
 
             <hr>
 
-            <button type="button" class="btn btn-primary" v-on:click="post_form">{$ episode.id ? 'Редактировать' : 'Создать' $}</button>
+            <button type="button" class="btn btn-primary" v-on:click="post_form">{$ category.id ? 'Редактировать' : 'Создать' $}</button>
             <button type="button" class="btn btn-danger" v-on:click="delete_form">Удалить</button>
 
         </div>
@@ -53,10 +53,10 @@
 
 
 
-        episode_creation_form = new Vue({
-            el: '#episode-create-app',
+        category_creation_form = new Vue({
+            el: '#category-create-app',
             data: {
-                episode : {},
+                category : {},
                 info_message : '',
                 success_message : '',
                 error_message : '',
@@ -78,14 +78,14 @@
                 },
                 post_form: function () {
                     this.clear_messages();
-                    if (!this.episode.id) {
+                    if (!this.category.id) {
                         console.log('POST request!');
                         this.$http.post(
-                            'episodes/',
-                            this.episode
+                            'categories/',
+                            this.category
                         ).then(response => {
                             console.log(response.body);
-                            this.episode = response.body;
+                            this.category = response.body;
                             this.success_message = "Запись успешно создана";
                         }).then(response => {
                             this.update_error(response)
@@ -93,11 +93,11 @@
                     } else {
                         console.log('PUT request!');
                         this.$http.put(
-                            'episodes/'+this.episode.id+'/',
-                            this.episode
+                            'categories/'+this.category.id+'/',
+                            this.category
                         ).then(response => {
                             console.log(response.body);
-                            this.episode = response.body;
+                            this.category = response.body;
                             this.success_message = "Запись успешно обновлена";
                         }, response => {
                             this.update_error(response)
@@ -106,15 +106,15 @@
                 },
                 delete_form: function () {
                     this.clear_messages();
-                    if (!this.episode.id){
+                    if (!this.category.id){
                         this.info_message = 'Сейчас не выбрано никакой записи для удаления';
                     } else {
                         this.$http.delete(
-                            'episodes/'+this.episode.id+'/',
-                            this.episode
+                            'categories/'+this.category.id+'/',
+                            this.category
                         ).then(response => {
                             console.log(response.body);
-                            this.episode = {};
+                            this.category = {};
                             this.success_message = "Запись успешно удалена";
                         }, response => {
                             this.update_error(response)
@@ -134,12 +134,12 @@
                 },
                 reset_form: function () {
                     console.log("reset!");
-                    this.episode = {};
+                    this.category = {};
                     this.clear_messages();
                  },
             },
             beforeMount: function(){
-                console.log("anime3-beforeMount");
+                console.log("anime4-beforeMount");
                 this.get_anime_list();
             },
         })

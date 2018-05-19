@@ -19,7 +19,16 @@ class AnimeSerializer(serializers.ModelSerializer):
 
 class CharacterSerializer(serializers.ModelSerializer):
 
-    anime = AnimeSerializer(read_only=True)
+    anime_id = serializers.PrimaryKeyRelatedField(
+        required=True,
+        queryset=Anime.objects.all(),
+        source='anime'
+    )
+    anime_name = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='canonical_title',
+        source='anime'
+    )
 
     class Meta:
         model = Character
@@ -28,6 +37,17 @@ class CharacterSerializer(serializers.ModelSerializer):
 
 
 class EpisodeSerializer(serializers.ModelSerializer):
+    anime_id = serializers.PrimaryKeyRelatedField(
+        required=True,
+        queryset=Anime.objects.all(),
+        source='anime'
+    )
+    anime_name = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='canonical_title',
+        source='anime'
+    )
+    air_date = serializers.DateTimeField(format="%Y-%m-%d", required=False, allow_null=True, input_formats=["%Y-%m-%d"])
 
     class Meta:
         model = Episode
@@ -35,6 +55,16 @@ class EpisodeSerializer(serializers.ModelSerializer):
 
 
 class ProducerSerializer(serializers.ModelSerializer):
+    anime_id = serializers.PrimaryKeyRelatedField(
+        required=True,
+        queryset=Anime.objects.all(),
+        source='anime'
+    )
+    anime_name = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='canonical_title',
+        source='anime'
+    )
 
     class Meta:
         model = Producer
@@ -43,6 +73,16 @@ class ProducerSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    anime_id = serializers.IntegerField(
+        required=True,
+        # queryset=Anime.objects.all(),
+        source='anime',
+    )
+    # anime_name = serializers.SlugRelatedField(
+    #     read_only=True,
+    #     slug_field='canonical_title',
+    #     source='anime'
+    # )
 
     class Meta:
         model = Category

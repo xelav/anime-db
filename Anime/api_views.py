@@ -30,23 +30,6 @@ class AnimeViewSet(viewsets.ModelViewSet):
 
         return queryset
 
-    # def create(self, request, *args, **kwargs):
-    #     print("create")
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_create(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-    #
-    # def perform_create(self, serializer):
-    #     serializer.save()
-    #
-    # def get_success_headers(self, data):
-    #     try:
-    #         return {'Location': str(data[api_settings.URL_FIELD_NAME])}
-    #     except (TypeError, KeyError):
-    #         return {}
-
 
 class CharacterViewSet(viewsets.ModelViewSet):
 
@@ -77,9 +60,16 @@ class EpisodeViewSet(viewsets.ModelViewSet):
 
 class ProducerViewSet(viewsets.ModelViewSet):
     pagination_class = LimitOffsetPagination
-    serializer_class = EpisodeSerializer
+    serializer_class = ProducerSerializer
 
     queryset = Producer.objects.all().order_by('name')
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    pagination_class = LimitOffsetPagination
+    serializer_class = CategorySerializer
+
+    queryset = Category.objects.all().order_by('title')
 
 
 @api_view(['GET'])

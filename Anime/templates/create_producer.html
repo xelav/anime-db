@@ -1,10 +1,146 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+    <div class="modal-header">
+        <h3>
+            Аниме БД
+        </h3>
+        <hr>
+        <h4>
+            Создание персонажей
+        </h4>
+    </div>
+
+    <div id="producer-create-app">
+
+        <div class="modal-body">
+
+
+            <producer-form
+                    :producer="producer"
+                    :readonly="false"
+                    :anime_options="anime_options"
+            ></producer-form>
+
+            <hr>
+
+            <p v-if="info_message" class="alert alert-info">
+                {$ info_message $}
+            </p>
+
+            <p v-if="success_message" class="alert alert-success">
+                {$ success_message $}
+            </p>
+
+            <p v-if="error_message" class="alert alert-danger">
+                {$ error_message $}
+                <br/>
+                {$ error_text $}
+            </p>
+
+            <hr>
+
+            <button type="button" class="btn btn-primary" v-on:click="post_form">{$ producer.id ? 'Редактировать' : 'Создать' $}</button>
+            <button type="button" class="btn btn-danger" v-on:click="delete_form">Удалить</button>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" v-on:click="reset_form" data-dismiss="modal">Закрыть</button>
+        </div>
+
+    </div>
+
+    <script>
+
+
+
+        producer_creation_form = new Vue({
+            el: '#producer-create-app',
+            data: {
+                producer : {},
+                info_message : '',
+                success_message : '',
+                error_message : '',
+                error_text : '',
+                anime_options : [],
+            },
+            methods: {
+                get_anime_list: function () {
+                    this.$http.get(
+                        'anime/',
+                        {params: {'limit': 1000}}
+                    ).then(response => {
+                            console.log(response);
+                            this.anime_options = response.body.results;
+                        }, response => {
+
+                        }
+                    )
+                },
+                post_form: function () {
+                    this.clear_messages();
+                    if (!this.producer.id) {
+                        console.log('POST request!');
+                        this.$http.post(
+                            'producers/',
+                            this.producer
+                        ).then(response => {
+                            console.log(response.body);
+                            this.producer = response.body;
+                            this.success_message = "Запись успешно создана";
+                        }).then(response => {
+                            this.update_error(response)
+                        })
+                    } else {
+                        console.log('PUT request!');
+                        this.$http.put(
+                            'producers/'+this.producer.id+'/',
+                            this.producer
+                        ).then(response => {
+                            console.log(response.body);
+                            this.producer = response.body;
+                            this.success_message = "Запись успешно обновлена";
+                        }, response => {
+                            this.update_error(response)
+                        })
+                    }
+                },
+                delete_form: function () {
+                    this.clear_messages();
+                    if (!this.producer.id){
+                        this.info_message = 'Сейчас не выбрано никакой записи для удаления';
+                    } else {
+                        this.$http.delete(
+                            'producers/'+this.producer.id+'/',
+                            this.producer
+                        ).then(response => {
+                            console.log(response.body);
+                            this.producer = {};
+                            this.success_message = "Запись успешно удалена";
+                        }, response => {
+                            this.update_error(response)
+                        })
+                    }
+                },
+                update_error: function (response) {
+                    console.log(response);
+                    this.error_message = "Ошибка. Код: " + response.status + " " + response.statusText;
+                    this.error_text = response.bodyText;
+                },
+                clear_messages: function () {
+                    this.success_message = "";
+                    this.error_message = "";
+                    this.error_text = "";
+                    this.info_message = '';
+                },
+                reset_form: function () {
+                    console.log("reset!");
+                    this.producer = {};
+                    this.clear_messages();
+                 },
+            },
+            beforeMount: function(){
+                console.log("anime4-beforeMount");
+                this.get_anime_list();
+            },
+        })
+    </script>
