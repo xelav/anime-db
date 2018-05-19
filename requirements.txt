@@ -1,9 +1,0 @@
-Django==2.0
-psycopg2
-djangorestframework
-drf-yasg
-django-heroku
-flex
-swagger_spec_validator
-dj-database-url
-django-bootstrap3
