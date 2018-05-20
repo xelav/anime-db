@@ -136,12 +136,42 @@
     <script>
 
        $('#anime-search-modal').on('shown.bs.modal', function (e) {
-          anime_search_form.get_anime_list();
-       })
+           anime_search_form.get_anime_list();
+           console.log('anime-search-modal')
+       });
 
-        $('#anime-search-modal').on('shown.bs.modal', function (e) {
-          character_search_form.get_anime_list();
-       })
+       $('#character-search-modal').on('shown.bs.modal', function (e) {
+           character_search_form.get_anime_list();
+           console.log('character-search-modal')
+       });
+
+
+       $('#character-creation-modal').on('shown.bs.modal', function (e) {
+           character_creation_form.get_anime_list();
+           console.log('character-creation-modal')
+       });
+
+       $('#episode-creation-modal').on('shown.bs.modal', function (e) {
+           episode_creation_form.get_anime_list();
+           console.log('episode-creation-modal')
+       });
+
+       $('#producer-creation-modal').on('shown.bs.modal', function (e) {
+           producer_creation_form.get_anime_list();
+           console.log('producer-creation-modal')
+       });
+
+       $('#category-creation-modal').on('shown.bs.modal', function (e) {
+           category_creation_form.get_anime_list();
+           console.log('category-creation-modal')
+       });
+
+
+
+        $(document).ready(function() {
+            console.log('Docuement-ready!')
+        })
+
 
     </script>
 
