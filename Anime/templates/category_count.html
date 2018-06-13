@@ -47,7 +47,7 @@
         methods: {
             get_count_list: function () {
                 this.$http.get(
-                    'category-count'
+                    'category-count/'
                 ).then(response => {
                     console.log('Response to category-count: ');
                     console.log(response);
