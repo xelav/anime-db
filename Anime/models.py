@@ -20,8 +20,8 @@ class AgeRestriction(models.Model):
 class Anime(models.Model):
     canonical_title = models.CharField(db_column='canonicalTitle', verbose_name='Каноничное название', max_length=255, blank=True, null=True)  # Field name made lowercase.
     titles = models.TextField(verbose_name='Прочие названия', blank=True, null=True)
-    start_date = models.DateTimeField(db_column='startDate', verbose_name='Дата начала показа', blank=True, null=True)  # Field name made lowercase.
-    end_date = models.DateTimeField(db_column='endDate', verbose_name='Дата окончания показа', blank=True, null=True)  # Field name made lowercase.
+    start_date = models.DateField(db_column='startDate', verbose_name='Дата начала показа', blank=True, null=True)  # Field name made lowercase.
+    end_date = models.DateField(db_column='endDate', verbose_name='Дата окончания показа', blank=True, null=True)  # Field name made lowercase.
     episode_count = models.IntegerField(db_column='episodeCount', verbose_name='Число эпизодов', blank=True, null=True)  # Field name made lowercase.
     show_type = models.CharField(db_column='showType', verbose_name='Тип', max_length=255, blank=True, null=True)  # Field name made lowercase.
     status = models.CharField(max_length=255, verbose_name='Статус', blank=True, null=True)
@@ -92,7 +92,7 @@ class Episode(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     canonical_title = models.CharField(db_column='canonicalTitle', verbose_name='Каноничное название', max_length=255, blank=True, null=True)  # Field name made lowercase.
     synopsis = models.TextField(verbose_name='Синопсис', blank=True, null=True)
-    air_date = models.DateTimeField(verbose_name='Дата выпуска в эфир', db_column='airdate', blank=True, null=True)
+    air_date = models.DateField(verbose_name='Дата выпуска в эфир', db_column='airdate', blank=True, null=True)
     season_number = models.IntegerField(db_column='seasonNumber', verbose_name='Номер сезона', blank=True, null=True)  # Field name made lowercase.
     number = models.IntegerField(verbose_name='Номер', blank=True, null=True)
     relative_number = models.IntegerField(verbose_name='Относительный номер', db_column='relativeNumber', blank=True, null=True)  # Field name made lowercase.

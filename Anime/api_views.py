@@ -9,13 +9,6 @@ import datetime
 
 
 class AnimeViewSet(viewsets.ModelViewSet):
-    """
-    asdf
-    
-    list:qq
-    
-    create:asdq
-    """
 
     pagination_class = LimitOffsetPagination
     serializer_class = AnimeSerializer

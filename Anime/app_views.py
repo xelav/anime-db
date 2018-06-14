@@ -82,18 +82,6 @@ def create_anime(request):
                   {'form': anime_form})
 
 
-def create_character(request):
-    return
-
-
-def create_episode(request):
-    return
-
-
-def create_producer(request):
-    return
-
-
 def get_categories_count(request):
 
     if request.method == "POST":

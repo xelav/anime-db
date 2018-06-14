@@ -239,9 +239,6 @@ Vue.component('anime-form', {
                     
                     <label class="control-label">Синопсис</label>
                     <textarea type="text" class="form-control" placeholder="Пусто" v-model:value="anime.synopsis" v-bind:disabled="readonly"/>
-                    
-                    <label class="control-label">Имеется франчайз</label>
-                    <input type="checkbox" class="form-control checkbox-inline"  v-model:value="anime.has_franchise" v-bind:disabled="readonly"/>
                    
                     <div v-if="readonly">
                         <label class="control-label">Время создания записи</label>
