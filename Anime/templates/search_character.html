@@ -116,7 +116,7 @@
                     self  = this;
                     console.log("Submit_search_form");
                     this.$http.get(
-                        'characters/'+self.choosen_character,
+                        'characters/'+self.choosen_character+'/',
                     ).then(response => {
                             console.log("Got character! : ");
                             console.log(response);
